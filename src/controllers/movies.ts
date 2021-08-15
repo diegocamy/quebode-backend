@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
 import { MoviePreviewResponse, Params } from "../interfaces";
-import generateUrl from "../utils/generateReqURL";
+import URLgenerator from "../utils/generateReqURL";
 import { generos } from "../utils/genres";
 
 const moviesController = {
   async discoverMovies(req: Request, res: Response) {
     const { sort_by, page, include_video } = req.query as Params;
-    const url = generateUrl("discover", sort_by, page, include_video);
+    const url = URLgenerator.discover(sort_by, page, include_video);
     try {
       const resp = await fetch(url);
       const json: MoviePreviewResponse = await resp.json();
