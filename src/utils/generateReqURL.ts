@@ -10,6 +10,11 @@ const urlGenerator = {
 
     return URL;
   },
+  trending() {
+    const URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}&language=es-ES`;
+
+    return URL;
+  },
 };
 
 export default urlGenerator;
