@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
-import { MoviePreviewResponse, Params } from "../interfaces";
+import {
+  MovieDetails,
+  MoviePreviewResponse,
+  Params,
+  TrailerResponse,
+} from "../interfaces";
 import URLgenerator from "../utils/generateReqURL";
 import { generos } from "../utils/genres";
 
@@ -26,6 +31,24 @@ const moviesController = {
       const json: MoviePreviewResponse = await resp.json();
 
       json.results.map((m) => (m.genres = m.genre_ids.map((g) => generos[g])));
+
+      return res.send(json);
+    } catch (error) {
+      return res.send(error);
+    }
+  },
+  async movieDetails(req: Request, res: Response) {
+    const { id } = req.params;
+    console.log(id);
+    const url = URLgenerator.movieDetails(id);
+    const trailersUrl = URLgenerator.movieVideos(id);
+    try {
+      const resp = await fetch(url);
+      const json: MovieDetails = await resp.json();
+      const trailersResp = await fetch(trailersUrl);
+      const trailersJson: TrailerResponse = await trailersResp.json();
+
+      json.trailers = trailersJson.results;
 
       return res.send(json);
     } catch (error) {
