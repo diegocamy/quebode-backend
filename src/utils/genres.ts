@@ -8,7 +8,7 @@ export const generos: { [key: number]: string } = {
   35: "Comedia",
   36: "Historia",
   37: "Western",
-  53: "Suspense",
+  53: "Suspenso",
   80: "Crimen",
   99: "Documental",
   878: "Ciencia ficción",
