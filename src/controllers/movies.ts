@@ -39,7 +39,6 @@ const moviesController = {
   },
   async movieDetails(req: Request, res: Response) {
     const { id } = req.params;
-    console.log(id);
     const url = URLgenerator.movieDetails(id);
     const trailersUrl = URLgenerator.movieVideos(id);
     try {
