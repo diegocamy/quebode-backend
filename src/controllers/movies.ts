@@ -8,6 +8,7 @@ import {
 } from "../interfaces";
 import URLgenerator from "../utils/generateReqURL";
 import { generos } from "../utils/genres";
+const usetube = require("usetube");
 
 const moviesController = {
   async discoverMovies(req: Request, res: Response) {
@@ -40,14 +41,16 @@ const moviesController = {
   async movieDetails(req: Request, res: Response) {
     const { id } = req.params;
     const url = URLgenerator.movieDetails(id);
-    const trailersUrl = URLgenerator.movieVideos(id);
+    // const trailersUrl = URLgenerator.movieVideos(id);
     try {
       const resp = await fetch(url);
       const json: MovieDetails = await resp.json();
-      const trailersResp = await fetch(trailersUrl);
-      const trailersJson: TrailerResponse = await trailersResp.json();
-
-      json.trailers = trailersJson.results;
+      // const trailersResp = await fetch(trailersUrl);
+      // const trailersJson: TrailerResponse = await trailersResp.json();
+      const trailers: TrailerResponse = await usetube.searchVideo(
+        json.title + "trailer"
+      );
+      json.trailers = trailers.videos;
 
       return res.send(json);
     } catch (error) {
