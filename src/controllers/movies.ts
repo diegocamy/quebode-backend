@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
 import {
+  Actor,
+  CastResponse,
   MovieDetails,
   MoviePreviewResponse,
   Params,
@@ -41,16 +43,20 @@ const moviesController = {
   async movieDetails(req: Request, res: Response) {
     const { id } = req.params;
     const url = URLgenerator.movieDetails(id);
-    // const trailersUrl = URLgenerator.movieVideos(id);
+    const castURL = URLgenerator.movieCast(id);
     try {
       const resp = await fetch(url);
       const json: MovieDetails = await resp.json();
-      // const trailersResp = await fetch(trailersUrl);
-      // const trailersJson: TrailerResponse = await trailersResp.json();
       const trailers: TrailerResponse = await usetube.searchVideo(
         json.title + "trailer"
       );
+      const castResp = await fetch(castURL);
+      const castJson: CastResponse = await castResp.json();
+      const cast: Actor[] = castJson.cast.slice(0, 10);
+
+      console.log(cast);
       json.trailers = trailers.videos;
+      json.cast = cast;
 
       return res.send(json);
     } catch (error) {

@@ -91,6 +91,7 @@ export interface MovieDetails {
   genres: Genre[];
   generos: string[];
   trailers?: Trailer[];
+  cast?: Actor[];
 }
 
 export interface Trailer {
@@ -107,4 +108,39 @@ export interface TrailerResponse {
   didyoumean: string;
   token: string;
   apikey: string;
+}
+
+export interface CastResponse {
+  id: number;
+  cast: Actor[];
+  crew: CrewPerson[];
+}
+
+export interface Actor {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
+}
+
+export interface CrewPerson {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path?: any;
+  credit_id: string;
+  department: string;
+  job: string;
 }

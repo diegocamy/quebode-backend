@@ -26,6 +26,11 @@ const urlGenerator = {
 
     return URL;
   },
+  movieCast(movie_id: string): string {
+    const URL = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.API_KEY}&language=es-ES`;
+
+    return URL;
+  },
 };
 
 export default urlGenerator;
