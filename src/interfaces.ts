@@ -92,6 +92,12 @@ export interface MovieDetails {
   generos: string[];
   trailers?: Trailer[];
   cast?: Actor[];
+  proveedores: Proveedor[];
+}
+
+export interface Proveedor {
+  nombre: string;
+  enlace: string;
 }
 
 export interface Trailer {
