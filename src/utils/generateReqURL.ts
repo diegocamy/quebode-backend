@@ -31,6 +31,11 @@ const urlGenerator = {
 
     return URL;
   },
+  similar(movie_id: string): string {
+    const URL = `https://api.themoviedb.org/3/movie/${movie_id}/similar?api_key=${process.env.API_KEY}&&language=es-ES&page=1`;
+
+    return URL;
+  },
 };
 
 export default urlGenerator;

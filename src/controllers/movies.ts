@@ -65,6 +65,20 @@ const moviesController = {
       return res.send(error);
     }
   },
+  async getSimilarMovies(req: Request, res: Response) {
+    const { id } = req.params;
+    const url = URLgenerator.similar(id);
+    try {
+      const resp = await fetch(url);
+      const json: MoviePreviewResponse = await resp.json();
+
+      json.results.map((m) => (m.genres = m.genre_ids.map((g) => generos[g])));
+
+      return res.json(json);
+    } catch (error) {
+      return res.send(error);
+    }
+  },
 };
 
 export default moviesController;
