@@ -3,11 +3,11 @@ import cors from "cors";
 import helmet from "helmet";
 import "dotenv/config";
 
-const app = express();
-const PORT = process.env.PORT || 1234;
-
 //IMPORT ROUTES
 import movieRoute from "./routes/movies";
+
+const app = express();
+const PORT = process.env.PORT || 1234;
 
 app.use(helmet());
 app.use(
