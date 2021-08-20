@@ -14,6 +14,7 @@ export interface Params extends ParamsDictionary {
   sort_by: SortBy;
   include_video: IncludeVideo;
   page: Page;
+  with_genres: string;
 }
 
 export interface MoviePreview {

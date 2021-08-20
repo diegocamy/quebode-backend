@@ -4,14 +4,23 @@ const urlGenerator = {
   discover(
     sort_by: SortBy = "popularity.desc",
     page: Page = "1",
-    include_video: IncludeVideo = "false"
+    include_video: IncludeVideo = "false",
+    with_genres: string = ""
   ): string {
-    const URL = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=es-ES&sort_by=${sort_by}&include_video=${include_video}&page=${page}&include_adult=false`;
+    const URL = `https://api.themoviedb.org/3/discover/movie?api_key=${
+      process.env.API_KEY
+    }&language=es-ES&sort_by=${sort_by}&include_video=${include_video}&page=${page}&include_adult=false${
+      with_genres && `&with_genres=${with_genres}`
+    }`;
 
     return URL;
   },
-  trending(): string {
-    const URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}&language=es-ES`;
+  trending(
+    sort_by: SortBy = "popularity.desc",
+    page: Page = "1",
+    include_video: IncludeVideo = "false"
+  ): string {
+    const URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}&language=es-ES&sort_by=${sort_by}&include_video=${include_video}&page=${page}&include_adult=false`;
 
     return URL;
   },

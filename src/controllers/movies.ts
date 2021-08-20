@@ -15,8 +15,13 @@ const usetube = require("usetube");
 
 const moviesController = {
   async discoverMovies(req: Request, res: Response) {
-    const { sort_by, page, include_video } = req.query as Params;
-    const url = URLgenerator.discover(sort_by, page, include_video);
+    const { sort_by, page, include_video, with_genres } = req.query as Params;
+    const url = URLgenerator.discover(
+      sort_by,
+      page,
+      include_video,
+      with_genres
+    );
     try {
       const resp = await fetch(url);
       const json: MoviePreviewResponse = await resp.json();
@@ -29,7 +34,8 @@ const moviesController = {
     }
   },
   async trendingMovies(req: Request, res: Response) {
-    const url = URLgenerator.trending();
+    const { sort_by, page, include_video } = req.query as Params;
+    const url = URLgenerator.trending(sort_by, page, include_video);
     try {
       const resp = await fetch(url);
       const json: MoviePreviewResponse = await resp.json();
