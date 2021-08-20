@@ -15,7 +15,7 @@ app.use(
     origin:
       process.env.NODE_ENV === "production"
         ? "https://localhost"
-        : "http://localhost:300",
+        : "http://localhost:3000",
   })
 );
 
