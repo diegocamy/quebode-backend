@@ -85,6 +85,20 @@ const moviesController = {
       return res.send(error);
     }
   },
+  async searchMovies(req: Request, res: Response) {
+    const { query, page } = req.query as Params;
+    const url = URLgenerator.search(page, query);
+    try {
+      const resp = await fetch(url);
+      const json: MoviePreviewResponse = await resp.json();
+
+      json.results.map((m) => (m.genres = m.genre_ids.map((g) => generos[g])));
+
+      return res.send(json);
+    } catch (error) {
+      return res.send(error);
+    }
+  },
 };
 
 export default moviesController;

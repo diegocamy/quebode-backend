@@ -45,6 +45,11 @@ const urlGenerator = {
 
     return URL;
   },
+  search(page: Page = "1", query: string): string {
+    const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.API_KEY}&language=es-ES&query=${query}&page=${page}&include_adult=false`;
+
+    return URL;
+  },
 };
 
 export default urlGenerator;
