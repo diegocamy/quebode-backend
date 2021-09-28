@@ -1,4 +1,5 @@
 import { ParamsDictionary } from "express-serve-static-core";
+import { YouTubeSearchResults } from "youtube-search";
 
 export type SortBy =
   | "popularity.desc"
@@ -91,7 +92,7 @@ export interface MovieDetails {
   vote_count: number;
   genres: Genre[];
   generos: string[];
-  trailers?: Trailer[];
+  trailers?: YouTubeSearchResults[];
   cast?: Actor[];
   proveedores: Proveedor[];
 }
@@ -99,22 +100,6 @@ export interface MovieDetails {
 export interface Proveedor {
   nombre: string;
   enlace: string;
-}
-
-export interface Trailer {
-  id: string;
-  original_title: string;
-  title: string;
-  artist: string;
-  duration: number;
-  publishedAt: Date;
-}
-
-export interface TrailerResponse {
-  videos: Trailer[];
-  didyoumean: string;
-  token: string;
-  apikey: string;
 }
 
 export interface CastResponse {

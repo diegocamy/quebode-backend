@@ -6,12 +6,12 @@ import {
   MovieDetails,
   MoviePreviewResponse,
   Params,
-  TrailerResponse,
 } from "../interfaces";
 import { generateProviders } from "../utils/generateProviders";
 import URLgenerator from "../utils/generateReqURL";
 import { generos } from "../utils/genres";
-const usetube = require("usetube");
+import { searchTrailer } from "../utils/youtube";
+import { YouTubeSearchResults } from "youtube-search";
 
 const moviesController = {
   async discoverMovies(req: Request, res: Response) {
@@ -54,15 +54,13 @@ const moviesController = {
     try {
       const resp = await fetch(url);
       const json: MovieDetails = await resp.json();
-      const trailers: TrailerResponse = await usetube.searchVideo(
-        json.title + "trailer"
-      );
+      const trailers = await searchTrailer(json.title + " trailer");
       const castResp = await fetch(castURL);
       const castJson: CastResponse = await castResp.json();
       const cast: Actor[] = castJson.cast.slice(0, 10);
       const providers = generateProviders(json.title, json.original_title);
 
-      json.trailers = trailers.videos.slice(0, 5);
+      json.trailers = trailers;
       json.cast = cast;
       json.proveedores = providers;
 
